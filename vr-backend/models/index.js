@@ -1,6 +1,6 @@
-const { Sequlize } = require('sequelize')
+const { Sequelize } = require('sequelize')
 const config = require('../config/config')
 
-const sequelize = new Sequlize(config.development)
+const sequelize = new Sequelize(config.development)
 
-module.exports = { sequelize}
+module.exports = { sequelize }
