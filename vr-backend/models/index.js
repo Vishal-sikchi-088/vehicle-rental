@@ -1,9 +1,14 @@
 const { Sequelize } = require('sequelize')
 const config = require('../config/config')
-const VechileTypeModel = require('./vehicleType')
+const VehicleTypeModel = require('./vehicleType')
+const VehicleModelModel = require('./vehicleModel')
 
 const sequelize = new Sequelize(config.development)
-const VechileType = VechileTypeModel(sequelize);
+const VehicleType = VehicleTypeModel(sequelize)
+const VehicleModel = VehicleModelModel(sequelize)
+
+VehicleType.hasMany(VehicleModel, { foreignKey: 'type_id' })
+VehicleModel.belongsTo(VehicleType, { foreignKey: 'type_id' })
 
 
 module.exports = { sequelize }

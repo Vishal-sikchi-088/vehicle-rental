@@ -1,8 +1,7 @@
 const { DataTypes } = require('sequelize')
-// const sequelize = require('./index')
 
-const vechileType = (sequelize) => {
-    return sequelize.define('VechileType', {
+const vehicleType = (sequelize) => {
+    return sequelize.define('VehicleType', {
         id: {
             type: DataTypes.INTEGER,
             primaryKey: true,
@@ -15,4 +14,4 @@ const vechileType = (sequelize) => {
     })
 }
 
-module.exports =  vechileType 
+module.exports =  vehicleType 
