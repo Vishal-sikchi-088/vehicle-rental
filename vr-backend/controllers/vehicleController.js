@@ -1,4 +1,4 @@
-const { VehicleType } = require('../models/index')
+const { VehicleType, VehicleModel } = require('../models/index')
 
 const getVehicleType = async (req, res) => {
     try {
@@ -9,4 +9,14 @@ const getVehicleType = async (req, res) => {
     }
 }
 
-module.exports = { getVehicleType }
+const getVehicleModels = async (req, res) => {
+    try {
+        const {typeId}   = req.query
+        const models = await VehicleModel.findAll({where: {type_id: typeId}})
+        res.json(models)
+    } catch (error) {
+        res.status(500).json({ error: 'Failed to fetch vehicle models' })
+    }
+}
+
+module.exports = { getVehicleType, getVehicleModels }
