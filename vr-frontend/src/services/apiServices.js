@@ -8,7 +8,18 @@ const getVehicleTypes = async () => {
         return response.data
     } catch (error) {
         console.error("Error fetching vehicle type", error)
+        return []
     }
 }
 
-export { getVehicleTypes }
+const getVehicleModel = async (typeId) => {
+    try {
+        const response = await axios.get(`${API_URl}/models?typeId=${typeId}`)
+        return response.data
+    } catch (error) {
+        console.error("Error fetching vehicle model", error)
+        return[]
+    }
+}
+
+export { getVehicleTypes, getVehicleModel }
