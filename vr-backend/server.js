@@ -2,7 +2,7 @@ const app = require('./app')
 const { sequelize } = require('./models/index')
 const seedInitialData = require('./seeders/seedData')
 
-const port = process.env.PORT || 3000
+const port = process.env.PORT || 3005
 
 sequelize.authenticate().then(async () => {
     console.log('Database has been connected')
