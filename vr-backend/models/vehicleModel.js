@@ -19,7 +19,7 @@ const vehicleModel = (sequelize) => {
                 key: 'id',
             },
         },
-        wheel: {
+        wheels: {
             type: DataTypes.INTEGER,
             allowNull: false
         }

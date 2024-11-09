@@ -13,4 +13,4 @@ VehicleType.hasMany(VehicleModel, { foreignKey: 'type_id' })
 VehicleModel.belongsTo(VehicleType, { foreignKey: 'type_id' })
 
 
-module.exports = { sequelize }
+module.exports = { sequelize, VehicleType, VehicleModel, Booking }
