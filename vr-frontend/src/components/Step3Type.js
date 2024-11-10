@@ -1,7 +1,7 @@
 import React, { useState, forwardRef, useImperativeHandle, useEffect } from "react";
 import { Radio, RadioGroup, FormControl, FormControlLabel, FormLabel } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
-import { setType, resetForm } from "../redux/formSlice";
+import { setType, resetForm, setModel } from "../redux/formSlice";
 import { getVehicleTypes } from "../services/apiServices";
 
 
@@ -36,6 +36,7 @@ const Step3Type = forwardRef((prop, ref) => {
 
     const handleTypeChange = (event) => {
         dispatch(setType(event.target.value))
+        dispatch(setModel(''))
     }
 
     return (
@@ -58,7 +59,7 @@ const Step3Type = forwardRef((prop, ref) => {
                 </RadioGroup>
                 {error && (
                     <p className="text-red-500 text-sm mt-2">
-                        Please select a wheel option to proceed.
+                        Please select a type option to proceed.
                     </p>
                 )}
             </FormControl>
