@@ -1,7 +1,7 @@
 import React, { useState, forwardRef, useImperativeHandle, useEffect } from "react";
 import { Radio, RadioGroup, FormControl, FormControlLabel, FormLabel } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
-import { resetForm, setEndDate, setStartDate, setModel } from "../redux/formSlice";
+import { resetForm, setEndDate, setStartDate, setModel, setModelName } from "../redux/formSlice";
 import { getVehicleModel } from "../services/apiServices";
 
 
@@ -36,9 +36,13 @@ const Step4Model = forwardRef((prop, ref) => {
     }))
 
     const handleModelChange = (event) => {
-        dispatch(setModel(event.target.value))
-        dispatch(setStartDate(''));
-        dispatch(setEndDate(''));
+        const selectedId = event.target.value
+        const selectedVehicleModel = vechileModels.find((model) => model.id == selectedId)
+    
+        dispatch(setModel(selectedId))
+        dispatch(setModelName(selectedVehicleModel?.name || ''))
+        dispatch(setStartDate(''))
+        dispatch(setEndDate(''))
     }
 
     return (

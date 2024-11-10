@@ -23,13 +23,13 @@ const Step5Booking = forwardRef((props, ref) => {
     }
 
     const handleNext = () => {
-        const isStartDateValid = dayjs(startDate).isValid();
-        const isEndDateValid = dayjs(endDate).isValid();
+        const isStartDateValid = dayjs(startDate).isValid()
+        const isEndDateValid = dayjs(endDate).isValid()
 
         setStartDateError(!isStartDateValid)
         setEndDateError(!isEndDateValid)
 
-        return isStartDateValid && isEndDateValid
+        return isStartDateValid && isEndDateValid 
     }
 
     useImperativeHandle(ref, () => ({
@@ -54,7 +54,7 @@ const Step5Booking = forwardRef((props, ref) => {
                 <div className="flex gap-4">
                     <DatePicker
                         label="Start Date"
-                        value={endDate ? dayjs(startDate): null}
+                        value={startDate ? dayjs(startDate): null}
                         onChange={handleStartDateChange}
                         disablePast
                         slotProps={{
@@ -65,6 +65,7 @@ const Step5Booking = forwardRef((props, ref) => {
                         label="End Date"
                         value={endDate ? dayjs(endDate): null}
                         onChange={handleEndDateChange}
+                        minDate={startDate ? startDate.add(1,'day'): null}
                         disablePast
                         slotProps={{
                             textField: { helperText: endDateError ? "Start date is required." : "" },
@@ -72,6 +73,9 @@ const Step5Booking = forwardRef((props, ref) => {
                     />
                 </div>
             </LocalizationProvider>
+            {/* {!isDateRangeValid && (
+                <p> Date Range invalid</p>
+            )} */}
         </div>
     )
 })

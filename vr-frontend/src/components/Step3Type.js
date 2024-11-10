@@ -1,7 +1,7 @@
 import React, { useState, forwardRef, useImperativeHandle, useEffect } from "react";
 import { Radio, RadioGroup, FormControl, FormControlLabel, FormLabel } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
-import { setType, resetForm, setModel } from "../redux/formSlice";
+import { setType, resetForm, setModel, setTypeName } from "../redux/formSlice";
 import { getVehicleTypes } from "../services/apiServices";
 
 
@@ -35,7 +35,11 @@ const Step3Type = forwardRef((prop, ref) => {
     }))
 
     const handleTypeChange = (event) => {
-        dispatch(setType(event.target.value))
+        const selectedId = event.target.value
+        const selectedVehicleType = vechileTypes.find((type) => type.id == selectedId)
+
+        dispatch(setType(selectedId))
+        dispatch(setTypeName(selectedVehicleType?.name || ''))
         dispatch(setModel(''))
     }
 
