@@ -66,7 +66,7 @@ const MultiStepForm = () => {
             case 2: return (<Step2Wheels ref={(el) => refs.current[2] = el}/>)
             case 3: return (<Step3Type ref={(el) => refs.current[3] = el}/>)
             case 4: return (<Step4Model ref={(el) => refs.current[4] = el}/>)
-            case 5: return (<Step5Booking ref={(el) => refs.current[5] = el}/>)
+            case 5: return (<Step5Booking BokkingMsg={setBookingMsg} ref={(el) => refs.current[5] = el}/>)
             case 6: return(<SummaryReport/>)
         }
     }
@@ -99,7 +99,7 @@ const MultiStepForm = () => {
 
                 <div>
                     { !bookingStatus && (
-                            <p className="text-red-600 text-sm "><i>*{bookingMsg}</i></p>
+                            <p className="text-red-600 text-sm "><i>{bookingMsg}</i></p>
                         )
                     }
                 </div>

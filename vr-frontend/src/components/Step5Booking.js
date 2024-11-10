@@ -37,12 +37,14 @@ const Step5Booking = forwardRef((props, ref) => {
     }))
 
     const handleStartDateChange = (newValue) => {
+        props.BokkingMsg('')
         if (dayjs(newValue).isValid()) {
             dispatch(setStartDate(newValue));
         }
     }
 
     const handleEndDateChange = (newValue) => {
+        props.BokkingMsg('')
         if (dayjs(newValue).isValid()) {
             dispatch(setEndDate(newValue));
         }
