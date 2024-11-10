@@ -6,12 +6,16 @@ import Step1Name from "./Step1Name";
 import Step2Wheels from "./Step2Wheels";
 import { Button } from "@mui/material";
 import Step3Type from "./Step3Type";
+import Step4Model from "./Step4Model";
+import Step5Booking from "./Step5Booking";
 
 const MultiStepForm = () => {
     const refs = useRef({
         1: null,
         2: null,
-        3: null
+        3: null,
+        4: null,
+        5: null
         // Add more steps as needed
     })
 
@@ -37,6 +41,8 @@ const MultiStepForm = () => {
             case 1: return (<Step1Name ref={(el) => refs.current[1] = el}/>)
             case 2: return (<Step2Wheels ref={(el) => refs.current[2] = el}/>)
             case 3: return (<Step3Type ref={(el) => refs.current[3] = el}/>)
+            case 4: return (<Step4Model ref={(el) => refs.current[4] = el}/>)
+            case 5: return (<Step5Booking ref={(el) => refs.current[5] = el}/>)
         }
     }
 
@@ -63,10 +69,15 @@ const MultiStepForm = () => {
                             Next
                         </Button>
                     )}
+                    {step == 5 && (
+                        <Button variant="contained" onClick={handleNextStep} color="primary">
+                            Book
+                        </Button>
+                    )}
                 </div>
             </div>
         </div>
     )
-        }
+}
 
 export default MultiStepForm

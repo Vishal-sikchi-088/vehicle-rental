@@ -49,7 +49,7 @@ const Step3Type = forwardRef((prop, ref) => {
                     
                 >
                     {vechileTypes.map((vehicleType) => {
-                        return (<FormControlLabel
+                        return (<FormControlLabel key={vehicleType.id}
                             value={vehicleType.id}
                             control={<Radio />}
                             label={vehicleType.name}
