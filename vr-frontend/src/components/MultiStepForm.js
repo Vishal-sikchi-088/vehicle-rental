@@ -7,15 +7,21 @@ import Step2Wheels from "./Step2Wheels";
 import { Button } from "@mui/material";
 
 const MultiStepForm = () => {
-    const step1NameRef = useRef()
+    const refs = useRef({
+        1: null,
+        2: null,
+        // Add more steps as needed
+    })
+
     const dispatch = useDispatch()
     const { step, userName, wheels, type, model, startDate, endDate } = useSelector((state) => state.form)
 
     const handleNextStep = () => {
-        if (step1NameRef.current) {
-            const isValid = step1NameRef.current.handleNext()
+        const stepRef = refs.current[step]
+        if (stepRef) {
+            const isValid = stepRef.handleNext()
             if (isValid) {
-                dispatch(nextStep());
+                dispatch(nextStep())
             }
         }
     }
@@ -26,8 +32,8 @@ const MultiStepForm = () => {
 
     const renderStep = () => {
         switch(step) {
-            case 1: return (<Step1Name ref={step1NameRef}/>)
-            case 2: return (<Step2Wheels onNext={handleNextStep} />)
+            case 1: return (<Step1Name ref={(el) => refs.current[1] = el}/>)
+            case 2: return (<Step2Wheels ref={(el) => refs.current[2] = el}/>)
         }
     }
 
