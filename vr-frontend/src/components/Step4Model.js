@@ -52,6 +52,7 @@ const Step4Model = forwardRef((prop, ref) => {
                 >
                     {vechileModels.map((vehicleModel) => {
                         return (<FormControlLabel
+                            key={vehicleModel.id}
                             value={vehicleModel.id}
                             control={<Radio />}
                             label={vehicleModel.name}
