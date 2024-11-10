@@ -10,6 +10,10 @@ const vehicleType = (sequelize) => {
         name: {
             type: DataTypes.STRING,
             allowNull: false
+        },
+        wheels: {
+            type: DataTypes.INTEGER,
+            allowNull: false
         }
     })
 }
