@@ -22,4 +22,16 @@ const getVehicleModel = async (typeId) => {
     }
 }
 
-export { getVehicleTypes, getVehicleModel }
+const createBooking = async (bookingData) => {
+    try {
+        const response = await axios.post(`${API_URl}/bookings`, bookingData)
+        return response.data
+      } catch (error) {
+        if (error.response) {
+          return (error.response.data)
+        }
+        return { error: 'Network error or server is down' }
+      }
+}
+
+export { getVehicleTypes, getVehicleModel, createBooking }
