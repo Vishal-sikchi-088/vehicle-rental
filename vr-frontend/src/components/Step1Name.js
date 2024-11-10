@@ -1,27 +1,43 @@
-import React, { useState } from "react";
+import React, { forwardRef, useState, useImperativeHandle, useEffect  } from "react";
 import { TextField, Box, Button } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import { setUserName, setWheels, setType, setModel, 
     setStartDate, setEndDate, nextStep, prevStep, resetForm } from "../redux/formSlice";
 
 
-const Step1Name = () => {
+const Step1Name = forwardRef((prop, ref) => {
     const dispatch = useDispatch()
     const [firstName, setFirstName] = useState('')
     const [lastName, setLastName] = useState('')
     const [firstNameError, setFirstNameError] = useState(false);
     const [lastNameError, setLastNameError] = useState(false);
     const { step, userName, wheels, type, model, startDate, endDate } = useSelector((state) => state.form)
+
+    useEffect(() => {
+        if (userName) {
+            const [first, last] = userName.split(' ')
+            setFirstName(first || '')
+            setLastName(last || '')
+        }
+    }, [userName])
     
     const handleNext = () => {
-         // Set error states if fields are empty
-         setFirstNameError(!firstName.trim());
-         setLastNameError(!lastName.trim());
-        if (firstName.trim() && lastName.trim()) {
+        const isFirstNameValid = firstName.trim() !== ''
+        const isLastNameValid = lastName.trim() !== ''
+
+        setFirstNameError(!isFirstNameValid)
+        setLastNameError(!isLastNameValid)
+
+        if (isFirstNameValid && isLastNameValid) {
             dispatch(setUserName(firstName + ' ' +lastName))
-            dispatch(nextStep())
+            return true
         }
+        return false
     }
+
+    useImperativeHandle(ref, () => ({
+        handleNext
+    }))
 
     const handleFirstNameChange = (event) => {
         setFirstName(event.target.value)
@@ -32,16 +48,25 @@ const Step1Name = () => {
     }
    
     return(
-        <Box component='form' className="m-52 flex justify-center flex-col gap-2">
-            <TextField label='First Name' error={firstNameError} required onChange={handleFirstNameChange}>
+        <Box component='form' className="flex justify-center flex-col gap-2">
+            <TextField 
+                label='First Name' 
+                error={firstNameError} 
+                required 
+                onChange={handleFirstNameChange}
+                value={firstName}
+                >
             </TextField>
-            <TextField  label='Last Name' error={lastNameError} required onChange={handleLastNameChange}>
+            <TextField  
+                label='Last Name' 
+                error={lastNameError} 
+                required 
+                onChange={handleLastNameChange}
+                value={lastName}
+                >
             </TextField>
-            <Button disabled='' variant="contained" onClick={handleNext}>
-                Next
-            </Button>
         </Box>
     )
-}
+})
 
 export default Step1Name
