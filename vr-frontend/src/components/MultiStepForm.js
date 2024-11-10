@@ -10,6 +10,7 @@ import Step4Model from "./Step4Model";
 import Step5Booking from "./Step5Booking";
 import { createBooking } from "../services/apiServices";
 import SummaryReport from "./summaryReport";
+import CheckCircleTwoToneIcon from '@mui/icons-material/CheckCircleTwoTone';
 
 const MultiStepForm = () => {
     const refs = useRef({
@@ -72,24 +73,39 @@ const MultiStepForm = () => {
 
     return (
         <div className="container mx-auto flex justify-center items-center">
-            <div className="w-full max-w-lg bg-gray-200 p-8 rounded-lg shadow-lg relative">
+            <div className={`w-full max-w-lg h-[${step === 6 ? 550 : 400}px] bg-transparent border-2 border-gray-400 p-4 px-8 rounded-lg shadow-xl shadow-gray-600 relative flex flex-col justify-between`}>
+               
                 <div className="flex justify-between items-center mb-4">
-                    <h2 className="text-2xl font-semibold text-gray-800">Step {step}</h2>
-                    <Button variant="text" onClick={() => dispatch(resetForm())} color="secondary">
-                        Reset
-                    </Button>
-                </div>
+                    { step !== 6 && <h2 className="text-2xl font-semibold text-gray-800">Step {step}</h2>}
+                    { step !== 6 && step !== 1 && 
+                        <Button variant="outlined" onClick={() => dispatch(resetForm())} color="secondary">
+                            Reset
+                        </Button>
+                    }
+                </div> 
+                    
+
+                {
+                    step === 6 && (
+                        <div className="flex justify-center items-center text-xl text-black">
+                            <CheckCircleTwoToneIcon sx={{ fontSize: 'inherit', color: 'green' }} />
+                            <span className="ml-2">Booking done!!</span>
+                        </div>
+                    )
+
+                } 
                 
                 <div className="mb-6">{renderStep()}</div>
+
                 <div>
                     { !bookingStatus && (
-                            <p>{bookingMsg}</p>
+                            <p className="text-red-600 text-sm "><i>*{bookingMsg}</i></p>
                         )
                     }
                 </div>
 
-                <div className="flex justify-between mt-6">
-                    {step > 1 && (
+                <div className="flex  justify-end gap-2 mt-auto">
+                    {(step > 1 && step < 5) && (
                         <Button variant="outlined" onClick={handleBackStep} color="primary">
                             Back
                         </Button>

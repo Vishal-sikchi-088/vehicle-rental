@@ -47,7 +47,8 @@ const Step1Name = forwardRef((prop, ref) => {
     }
    
     return(
-        <Box component='form' className="flex justify-center flex-col gap-2">
+        <Box component='form' className="flex justify-center flex-col gap-4">
+            <label className="mb-1">Enter the First Name and Last Name</label>
             <TextField 
                 label='First Name' 
                 error={firstNameError} 

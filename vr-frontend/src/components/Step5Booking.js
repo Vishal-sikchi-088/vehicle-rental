@@ -49,7 +49,8 @@ const Step5Booking = forwardRef((props, ref) => {
     }
 
     return (
-        <div className="">
+        <div>
+            <label className="flex mb-6">Select the Start date and End date.</label>
             <LocalizationProvider dateAdapter={AdapterDayjs}>
                 <div className="flex gap-4">
                     <DatePicker
@@ -73,9 +74,6 @@ const Step5Booking = forwardRef((props, ref) => {
                     />
                 </div>
             </LocalizationProvider>
-            {/* {!isDateRangeValid && (
-                <p> Date Range invalid</p>
-            )} */}
         </div>
     )
 })

@@ -46,7 +46,7 @@ const Step3Type = forwardRef((prop, ref) => {
     return (
         <div className="flex justify-center flex-col">
             <FormControl component="fieldset">
-                <FormLabel component="legend">Select type of vehicle</FormLabel>
+                <FormLabel component="legend">Select the type of vehicle.</FormLabel>
                 <RadioGroup
                     value={selectedVehicleType}
                     onChange={handleTypeChange}
@@ -63,7 +63,7 @@ const Step3Type = forwardRef((prop, ref) => {
                 </RadioGroup>
                 {error && (
                     <p className="text-red-500 text-sm mt-2">
-                        Please select a type option to proceed.
+                        *Please select a type option to proceed.
                     </p>
                 )}
             </FormControl>

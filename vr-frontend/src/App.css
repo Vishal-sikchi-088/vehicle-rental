@@ -1,0 +1,27 @@
+.app-container {
+    position: relative;
+    height: 100vh;
+    overflow: hidden;
+  }
+  
+  .app-container::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: url('https://img.freepik.com/free-photo/stylish-elegant-couple-car-salon_1157-24276.jpg?t=st=1731252628~exp=1731256228~hmac=11774b5e09c27c330f8e14df279e3e1831eadd31e714f0f510bb98e9d8625a10&w=1800');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    filter: blur(8px); /* Apply blur effect to the image */
+    z-index: -1;
+    opacity: 0.4; /* Make the image dimmer */
+    background-color: rgba(0, 0, 0, 0.3); /* Add a semi-transparent black overlay */
+  }
+  
+  h1, .multi-step-form {
+    z-index: 1; /* Keep content in front */
+  }
+  

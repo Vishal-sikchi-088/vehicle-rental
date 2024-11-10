@@ -27,28 +27,29 @@ const Step2Wheels = forwardRef((prop, ref) => {
     }))
 
     return(
-        <div className="flex justify-center flex-col">
-            <FormControl component="fieldset">
-                <FormLabel component="legend">Select type of vehicle</FormLabel>
+        <div className="flex justify-center flex-col p-2">
+            <FormControl component="fieldset" className="w-full max-w-md">
+                <FormLabel component="legend" className="text-lg font-medium mb-4 text-gray-700">What kind of vehicle you need?</FormLabel>
                 <RadioGroup
                     value={selectedWheels}
                     onChange={handleWheelsChange}
-                    row
                 >
                     <FormControlLabel
                         value="2"
                         control={<Radio />}
                         label="Bike"
+                        className="text-gray-600"
                     />
                     <FormControlLabel
                         value="4"
                         control={<Radio />}
                         label="Car"
+                        className="text-gray-600"
                     />
                 </RadioGroup>
                 {error && (
                     <p className="text-red-500 text-sm mt-2">
-                        Please select a wheel option to proceed.
+                        *Please select a wheel option to proceed.
                     </p>
                 )}
             </FormControl>

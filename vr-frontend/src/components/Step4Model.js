@@ -66,7 +66,7 @@ const Step4Model = forwardRef((prop, ref) => {
                 </RadioGroup>
                 {error && (
                     <p className="text-red-500 text-sm mt-2">
-                        Please select a vehicle model option to proceed.
+                        *Please select a vehicle model option to proceed.
                     </p>
                 )}
             </FormControl>
