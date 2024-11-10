@@ -5,11 +5,13 @@ import { setUserName, setWheels, setType, setModel,
 import Step1Name from "./Step1Name";
 import Step2Wheels from "./Step2Wheels";
 import { Button } from "@mui/material";
+import Step3Type from "./Step3Type";
 
 const MultiStepForm = () => {
     const refs = useRef({
         1: null,
         2: null,
+        3: null
         // Add more steps as needed
     })
 
@@ -34,6 +36,7 @@ const MultiStepForm = () => {
         switch(step) {
             case 1: return (<Step1Name ref={(el) => refs.current[1] = el}/>)
             case 2: return (<Step2Wheels ref={(el) => refs.current[2] = el}/>)
+            case 3: return (<Step3Type ref={(el) => refs.current[3] = el}/>)
         }
     }
 

@@ -1,8 +1,7 @@
 import React, { useState, forwardRef, useImperativeHandle } from "react";
-import {Button,  Radio, RadioGroup, FormControl, FormControlLabel, FormLabel } from "@mui/material";
+import { Radio, RadioGroup, FormControl, FormControlLabel, FormLabel } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
-import { setUserName, setWheels, setType, setModel, 
-    setStartDate, setEndDate, nextStep, prevStep, resetForm } from "../redux/formSlice";
+import { setWheels, resetForm, setType } from "../redux/formSlice";
 
 
 const Step2Wheels = forwardRef((prop, ref) => {
@@ -12,6 +11,7 @@ const Step2Wheels = forwardRef((prop, ref) => {
 
     const handleWheelsChange = (event) => {
         dispatch(setWheels(event.target.value))
+        dispatch(setType(''))
     }
 
     const handleNext = () => {

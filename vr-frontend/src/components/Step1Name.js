@@ -1,8 +1,7 @@
 import React, { forwardRef, useState, useImperativeHandle, useEffect  } from "react";
-import { TextField, Box, Button } from "@mui/material";
+import { TextField, Box } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
-import { setUserName, setWheels, setType, setModel, 
-    setStartDate, setEndDate, nextStep, prevStep, resetForm } from "../redux/formSlice";
+import { setUserName, resetForm } from "../redux/formSlice";
 
 
 const Step1Name = forwardRef((prop, ref) => {
