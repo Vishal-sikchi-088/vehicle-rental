@@ -1,11 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, forwardRef, useImperativeHandle } from "react";
 import {Button,  Radio, RadioGroup, FormControl, FormControlLabel, FormLabel } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import { setUserName, setWheels, setType, setModel, 
     setStartDate, setEndDate, nextStep, prevStep, resetForm } from "../redux/formSlice";
 
 
-const Step2Wheels = () => {
+const Step2Wheels = forwardRef((prop, ref) => {
     const [error, setError] = useState(false)
     const dispatch = useDispatch()
     const selectedWheels = useSelector((state) => state.form.wheels)
@@ -17,14 +17,19 @@ const Step2Wheels = () => {
     const handleNext = () => {
         setError(!selectedWheels)
         if (selectedWheels) {
-            dispatch(nextStep())
+            return true
         }
+        return false
     }
 
+    useImperativeHandle(ref, () => ({
+        handleNext
+    }))
+
     return(
-        <div className="m-52 flex justify-center flex-col">
+        <div className="flex justify-center flex-col">
             <FormControl component="fieldset">
-                <FormLabel component="legend">Select Wheels</FormLabel>
+                <FormLabel component="legend">Select type of vehicle</FormLabel>
                 <RadioGroup
                     value={selectedWheels}
                     onChange={handleWheelsChange}
@@ -33,12 +38,12 @@ const Step2Wheels = () => {
                     <FormControlLabel
                         value="2"
                         control={<Radio />}
-                        label="2 wheel"
+                        label="Bike"
                     />
                     <FormControlLabel
                         value="4"
                         control={<Radio />}
-                        label="4 wheel"
+                        label="Car"
                     />
                 </RadioGroup>
                 {error && (
@@ -47,12 +52,9 @@ const Step2Wheels = () => {
                     </p>
                 )}
             </FormControl>
-            <Button disabled='' variant="contained" onClick={handleNext}>
-                Next
-            </Button>
         </div>
         
     )
-}
+})
 
 export default Step2Wheels
