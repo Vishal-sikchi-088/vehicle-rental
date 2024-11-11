@@ -31,7 +31,7 @@ const MultiStepForm = () => {
         if (stepRef) {
             const isValid = stepRef.handleNext()
             if (isValid && step<5) {
-                enqueueSnackbar("Moving to next setup", { variant: "success" })
+                enqueueSnackbar("Saved :)", { variant: "success" })
                 dispatch(nextStep())
             }
             if (isValid && step == 5) {

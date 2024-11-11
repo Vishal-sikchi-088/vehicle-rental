@@ -2,10 +2,12 @@ import React, { forwardRef, useState, useImperativeHandle, useEffect  } from "re
 import { TextField, Box } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import { setUserName } from "../redux/formSlice";
+import { useSnackbar } from 'notistack';
 
 
 const Step1Name = forwardRef((prop, ref) => {
     const dispatch = useDispatch()
+    const { enqueueSnackbar } = useSnackbar()
     const [firstName, setFirstName] = useState('')
     const [lastName, setLastName] = useState('')
     const [firstNameError, setFirstNameError] = useState(false);
@@ -31,6 +33,7 @@ const Step1Name = forwardRef((prop, ref) => {
             dispatch(setUserName(firstName + ' ' +lastName))
             return true
         }
+        enqueueSnackbar("Please fill the name of the user", { variant: "error" })
         return false
     }
 
