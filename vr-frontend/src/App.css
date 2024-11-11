@@ -15,9 +15,9 @@
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
-    filter: blur(8px); /* Apply blur effect to the image */
+    filter: blur(2px); /* Apply blur effect to the image */
     z-index: -1;
-    opacity: 0.4; /* Make the image dimmer */
+    opacity: 0.2; /* Make the image dimmer */
     background-color: rgba(0, 0, 0, 0.3); /* Add a semi-transparent black overlay */
   }
   

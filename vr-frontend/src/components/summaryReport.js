@@ -7,14 +7,13 @@ import { Button } from "@mui/material";
 
 function SummaryReport() {
     const dispatch = useDispatch()
-    const { step, userName, wheels, type, model, startDate, endDate, typeName, modelName } = useSelector((state) => state.form);
+    const { userName, wheels, startDate, endDate, typeName, modelName } = useSelector((state) => state.form);
 
     return (
-        <div className="my-2 p-4 rounded-lg shadow-lg">
+        <div className="my-2 p-4 rounded-lg shadow-lg  shadow-gray-300">
             <div className="flex justify-between items-center mb-4">
                 <h1 className="text-2xl font-semibold text-gray-800">Booking Summary</h1>
                 <Button variant="outlined" color='primary'
-                    className=' hover:bg-blue-400'
                     onClick={() => dispatch(resetForm())}
                 >
                     Home

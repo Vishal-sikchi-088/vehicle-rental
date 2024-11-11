@@ -4,12 +4,14 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 
 import { useDispatch, useSelector } from "react-redux";
-import {  setStartDate, setEndDate,  resetForm } from "../redux/formSlice";
+import {  setStartDate, setEndDate } from "../redux/formSlice";
 import dayjs from 'dayjs';
+import { useSnackbar } from 'notistack';
 
 const Step5Booking = forwardRef((props, ref) => {
     const { startDate , endDate } = useSelector((state) => state.form)
     const dispatch = useDispatch()
+    const { enqueueSnackbar } = useSnackbar()
     const [startDateError, setStartDateError] = useState(false)
     const [endDateError, setEndDateError] = useState(false)
 
@@ -29,6 +31,13 @@ const Step5Booking = forwardRef((props, ref) => {
         setStartDateError(!isStartDateValid)
         setEndDateError(!isEndDateValid)
 
+        if (!isStartDateValid) {
+            enqueueSnackbar("Please select a valid start date.", { variant: "error" })
+        }
+        if (!isEndDateValid) {
+            enqueueSnackbar("Please select a valid end date.", { variant: "error" })
+        }
+
         return isStartDateValid && isEndDateValid 
     }
 
@@ -37,18 +46,22 @@ const Step5Booking = forwardRef((props, ref) => {
     }))
 
     const handleStartDateChange = (newValue) => {
-        props.BokkingMsg('')
         if (dayjs(newValue).isValid()) {
-            dispatch(setStartDate(newValue));
+            dispatch(setStartDate(newValue))
+            enqueueSnackbar("Start date selected.", { variant: "success" })
+        } else {
+            enqueueSnackbar("Invalid start date.", { variant: "error" })
         }
-    }
+    };
 
     const handleEndDateChange = (newValue) => {
-        props.BokkingMsg('')
         if (dayjs(newValue).isValid()) {
             dispatch(setEndDate(newValue));
+            enqueueSnackbar("End date selected.", { variant: "success" })
+        } else {
+            enqueueSnackbar("Invalid end date.", { variant: "error" })
         }
-    }
+    };
 
     return (
         <div>

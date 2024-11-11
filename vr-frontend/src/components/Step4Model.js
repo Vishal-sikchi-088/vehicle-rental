@@ -1,13 +1,16 @@
 import React, { useState, forwardRef, useImperativeHandle, useEffect } from "react";
 import { Radio, RadioGroup, FormControl, FormControlLabel, FormLabel } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
-import { resetForm, setEndDate, setStartDate, setModel, setModelName } from "../redux/formSlice";
+import { setEndDate, setStartDate, setModel, setModelName } from "../redux/formSlice";
 import { getVehicleModel } from "../services/apiServices";
+import { useSnackbar } from 'notistack';
+
 
 
 const Step4Model = forwardRef((prop, ref) => {
 
     const dispatch = useDispatch()
+    const { enqueueSnackbar } = useSnackbar()
     const [error, setError] = useState(false)
     let [ vechileModels, setVehicleModels ] = useState([])
     const { type, model } = useSelector((state) => state.form)
@@ -24,11 +27,13 @@ const Step4Model = forwardRef((prop, ref) => {
     }, [])
 
     const handleNext = () => {
+        const hasError = !selectedVehicleModel   
         setError(!selectedVehicleModel)
-        if (selectedVehicleModel) {
-            return true
+        if (hasError) {
+            enqueueSnackbar("Please select a vehicle model to proceed.", { variant: "error" });
+            return false
         }
-        return false
+        return true
     }
 
     useImperativeHandle(ref, () => ({
@@ -64,11 +69,6 @@ const Step4Model = forwardRef((prop, ref) => {
                     })}
                     
                 </RadioGroup>
-                {error && (
-                    <p className="text-red-500 text-sm mt-2">
-                        *Please select a vehicle model option to proceed.
-                    </p>
-                )}
             </FormControl>
         </div>
     )

@@ -1,7 +1,6 @@
 import React, { useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { setUserName, setWheels, setType, setModel, 
-    setStartDate, setEndDate, nextStep, prevStep, resetForm } from "../redux/formSlice";
+import { nextStep, prevStep, resetForm } from "../redux/formSlice";
 import Step1Name from "./Step1Name";
 import Step2Wheels from "./Step2Wheels";
 import { Button } from "@mui/material";
@@ -11,6 +10,7 @@ import Step5Booking from "./Step5Booking";
 import { createBooking } from "../services/apiServices";
 import SummaryReport from "./summaryReport";
 import CheckCircleTwoToneIcon from '@mui/icons-material/CheckCircleTwoTone';
+import { useSnackbar } from 'notistack';
 
 const MultiStepForm = () => {
     const refs = useRef({
@@ -23,15 +23,15 @@ const MultiStepForm = () => {
     })
 
     const dispatch = useDispatch()
-    const [bookingStatus, setBookingStatus] = useState(false)
-    const [bookingMsg, setBookingMsg] = useState('')
-    const { step, userName, wheels, type, model, startDate, endDate } = useSelector((state) => state.form)
+    const { enqueueSnackbar } = useSnackbar()
+    const { step, userName, model, startDate, endDate } = useSelector((state) => state.form)
 
     const handleNextStep = () => {
         const stepRef = refs.current[step]
         if (stepRef) {
             const isValid = stepRef.handleNext()
             if (isValid && step<5) {
+                enqueueSnackbar("Moving to next setup", { variant: "success" })
                 dispatch(nextStep())
             }
             if (isValid && step == 5) {
@@ -48,12 +48,17 @@ const MultiStepForm = () => {
             end_date: endDate
         }
         const response = await createBooking(bookingData)
-        setBookingStatus(response.bookingStatus) 
-        setBookingMsg(response.message)  
-
-        if(response.bookingStatus) {
-            dispatch(nextStep())
+        if(response.error) {
+            enqueueSnackbar(response.error, { variant: 'error', className: 'snackbar-error' })
+        } else {
+            if(response.bookingStatus) {
+                enqueueSnackbar("Booking done", { variant: "success" })
+                dispatch(nextStep())
+            } else {
+                enqueueSnackbar(response.message, { variant: 'error', className: 'snackbar-error' })
+            }
         }
+          
     }
 
     const handleBackStep = () => {
@@ -66,7 +71,7 @@ const MultiStepForm = () => {
             case 2: return (<Step2Wheels ref={(el) => refs.current[2] = el}/>)
             case 3: return (<Step3Type ref={(el) => refs.current[3] = el}/>)
             case 4: return (<Step4Model ref={(el) => refs.current[4] = el}/>)
-            case 5: return (<Step5Booking BokkingMsg={setBookingMsg} ref={(el) => refs.current[5] = el}/>)
+            case 5: return (<Step5Booking ref={(el) => refs.current[5] = el}/>)
             case 6: return(<SummaryReport/>)
         }
     }
@@ -97,15 +102,8 @@ const MultiStepForm = () => {
                 
                 <div className="mb-6">{renderStep()}</div>
 
-                <div>
-                    { !bookingStatus && (
-                            <p className="text-red-600 text-sm "><i>{bookingMsg}</i></p>
-                        )
-                    }
-                </div>
-
                 <div className="flex  justify-end gap-2 mt-auto">
-                    {(step > 1 && step < 5) && (
+                    {(step > 1 && step < 6) && (
                         <Button variant="outlined" onClick={handleBackStep} color="primary">
                             Back
                         </Button>

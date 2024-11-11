@@ -1,12 +1,15 @@
 import React, { useState, forwardRef, useImperativeHandle } from "react";
 import { Radio, RadioGroup, FormControl, FormControlLabel, FormLabel } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
-import { setWheels, resetForm, setType } from "../redux/formSlice";
+import { setWheels, setType } from "../redux/formSlice";
+import { useSnackbar } from 'notistack';
+
 
 
 const Step2Wheels = forwardRef((prop, ref) => {
     const [error, setError] = useState(false)
     const dispatch = useDispatch()
+    const { enqueueSnackbar } = useSnackbar()
     const selectedWheels = useSelector((state) => state.form.wheels)
 
     const handleWheelsChange = (event) => {
@@ -15,11 +18,13 @@ const Step2Wheels = forwardRef((prop, ref) => {
     }
 
     const handleNext = () => {
-        setError(!selectedWheels)
-        if (selectedWheels) {
-            return true
+        const hasError = !selectedWheels
+        setError(hasError)
+        if (hasError) {
+            enqueueSnackbar("Please select a Wheel to proceed.", { variant: "error" });
+            return false
         }
-        return false
+        return true
     }
 
     useImperativeHandle(ref, () => ({
@@ -47,11 +52,6 @@ const Step2Wheels = forwardRef((prop, ref) => {
                         className="text-gray-600"
                     />
                 </RadioGroup>
-                {error && (
-                    <p className="text-red-500 text-sm mt-2">
-                        *Please select a wheel option to proceed.
-                    </p>
-                )}
             </FormControl>
         </div>
         

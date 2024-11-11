@@ -1,7 +1,7 @@
 import React, { forwardRef, useState, useImperativeHandle, useEffect  } from "react";
 import { TextField, Box } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
-import { setUserName, resetForm } from "../redux/formSlice";
+import { setUserName } from "../redux/formSlice";
 
 
 const Step1Name = forwardRef((prop, ref) => {
@@ -10,7 +10,7 @@ const Step1Name = forwardRef((prop, ref) => {
     const [lastName, setLastName] = useState('')
     const [firstNameError, setFirstNameError] = useState(false);
     const [lastNameError, setLastNameError] = useState(false);
-    const { step, userName, wheels, type, model, startDate, endDate } = useSelector((state) => state.form)
+    const { userName } = useSelector((state) => state.form)
 
     useEffect(() => {
         if (userName) {
