@@ -179,4 +179,4 @@ This document covers the structural design for the **database**, **backend**, an
 
 This setup should provide a solid foundation for development and ensure the system meets the requirements effectively.
 
-[Watch the video](https://drive.google.com/file/d/1OUYqF7fMMpSSbI6-2URDfCR-elbMDCfZ/view?usp=sharing)
+[Watch the Demo of the Application](https://drive.google.com/file/d/1OUYqF7fMMpSSbI6-2URDfCR-elbMDCfZ/view?usp=sharing)

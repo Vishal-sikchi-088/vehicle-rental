@@ -24,6 +24,7 @@ const MultiStepForm = () => {
 
     const dispatch = useDispatch()
     const { enqueueSnackbar } = useSnackbar()
+    const [disableBtn, setDisableBtn] = useState(false)
     const { step, userName, model, startDate, endDate } = useSelector((state) => state.form)
 
     const handleNextStep = () => {
@@ -35,6 +36,7 @@ const MultiStepForm = () => {
                 dispatch(nextStep())
             }
             if (isValid && step == 5) {
+                setDisableBtn(true)
                 bookVechile()
             }    
         }
@@ -48,6 +50,7 @@ const MultiStepForm = () => {
             end_date: endDate
         }
         const response = await createBooking(bookingData)
+        setDisableBtn(false)
         if(response.error) {
             enqueueSnackbar(response.error, { variant: 'error', className: 'snackbar-error' })
         } else {
@@ -114,7 +117,7 @@ const MultiStepForm = () => {
                         </Button>
                     )}
                     {step == 5 && (
-                        <Button variant="contained" onClick={handleNextStep} color="primary">
+                        <Button disabled={disableBtn} variant="contained" onClick={handleNextStep} color="primary">
                             Book
                         </Button>
                     )}
