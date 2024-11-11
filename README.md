@@ -112,23 +112,23 @@ The frontend is built with React, utilizing a multi-step form to capture user da
 
 The frontend consists of several components, each responsible for one step in the booking form:
 
-1. **Step1Name**:
+1. **Step 1 Name**:
    - Input for user’s first and last names.
    - Validates that both fields are filled before proceeding.
 
-2. **Step2Wheels**:
+2. **Step 2 Wheels**:
    - Radio button input for selecting the number of wheels (2 or 4).
    - Determines whether Car or Bike options are displayed.
 
-3. **Step3Type**:
+3. **Step 3 Type**:
    - Radio button for selecting a vehicle type (Car or Bike).
    - Fetches and displays options dynamically from the backend.
 
-4. **Step4Model**:
+4. **Step 4 Model**:
    - Radio button to select the specific model of the vehicle (e.g., SUV, Cruiser).
    - Options are dynamically fetched based on the previous selection.
 
-5. **Step5DateRange**:
+5. **Step 5 DateRange**:
    - Date picker component to select start and end dates for booking.
    - Validates that dates are logical (e.g., end date is after start date).
 
